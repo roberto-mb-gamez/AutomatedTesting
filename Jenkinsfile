@@ -19,7 +19,7 @@ pipeline {
         }
         stage("Code coverage") {
             steps {
-                sh "tools\reportgenerator.exe -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
+                sh "tools/reportgenerator.exe -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
             }
         }
     }
