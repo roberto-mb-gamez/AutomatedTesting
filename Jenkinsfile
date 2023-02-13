@@ -1,6 +1,10 @@
 pipeline {
     agent any
     stages {
+        stage("Prepare") {
+            // Clean Jenkins workspace.
+            cleanWs()
+        }
         stage("SDK Versions") {
             steps {
                 sh "dotnet --list-sdks"
