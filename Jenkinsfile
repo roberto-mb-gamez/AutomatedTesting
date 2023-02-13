@@ -16,7 +16,7 @@ pipeline {
                 sh "rm -rf tools"
                 sh "dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools"
                 sh "ls -R"
-                sh "./tools/reportgenerator.exe -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
+                sh "./tools/reportgenerator -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
             }
         }
     }
