@@ -11,9 +11,9 @@ pipeline {
                 sh "dotnet build"
             }
         }
-        stage("Unit Test") {
+         stage("Unit Test") {
             steps {
-                sh "dotnet test -f net5.0"
+                sh "dotnet test -f net5.0 --logger 'trx;LogFileName=TestResults.trx' --logger 'xunit;LogFileName=TestResults.xml' --results-directory ./BuildReports/UnitTests /p:CollectCoverage=true /p:CoverletOutput=BuildReports/Coverage/ /p:CoverletOutputFormat=cobertura /p:Exclude='[xunit.*]*'"
             }
         }
     }
