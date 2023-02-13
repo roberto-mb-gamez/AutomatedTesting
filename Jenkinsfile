@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("Install tools") {
             steps {
-                sh "rmdir --ignore-fail-on-non-empty tools"
+                sh "rm -f -d tools"
                 sh "dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools"
             }
         }
