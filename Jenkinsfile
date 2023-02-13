@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("Install tools") {
             steps {
-                sh "rm -rf tools"
+                sh "if [ -d 'tools']; then rm -d tools ; fi"
                 sh "dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools"
             }
         }
@@ -19,7 +19,7 @@ pipeline {
         }
         stage("Code coverage") {
             steps {
-                sh "tools/reportgenerator.exe -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
+                sh "dotnet-reportgenerator-globaltool -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
             }
         }
     }
