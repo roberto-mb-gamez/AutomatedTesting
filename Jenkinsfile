@@ -1,12 +1,6 @@
 pipeline {
     agent any
     stages {
-        stage("Install tools") {
-            steps {
-                sh "rm -rf tools"
-                sh "dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools"
-            }
-        }
         stage("Compile") {
             steps {
                 sh "dotnet build"
@@ -19,7 +13,9 @@ pipeline {
         }
         stage("Code coverage") {
             steps {
-                sh "dotnet-reportgenerator-globaltool -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
+                sh "rm -rf tools"
+                sh "dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools"
+                sh "tools/reportgenerator.exe -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
             }
         }
     }
