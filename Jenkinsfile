@@ -1,9 +1,10 @@
 pipeline {
     agent any
     stages {
-        stage("SDK Versions") {
+        stage("Install tools") {
             steps {
-                sh "dotnet --list-sdks"
+                sh "rm -d tools"
+                sh "dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools"
             }
         }
         stage("Compile") {
@@ -11,10 +12,14 @@ pipeline {
                 sh "dotnet build"
             }
         }
-         stage("Unit Test") {
+        stage("Tests") {
             steps {
-                // sh "dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools"
-                sh "dotnet test -f net5.0 --logger 'trx;LogFileName=TestResults.trx' --logger 'xunit;LogFileName=TestResults.xml' --results-directory ./BuildReports/UnitTests /p:CollectCoverage=true /p:CoverletOutput=BuildReports/Coverage/ /p:CoverletOutputFormat=cobertura /p:Exclude='[xunit.*]*'"
+                sh "dotnet test -f net5.0 --logger 'trx;LogFileName=TestResults.trx' --logger 'xunit;LogFileName=TestResults.xml' --results-directory ./BuildReports/TestResults /p:CollectCoverage=true /p:CoverletOutput=BuildReports/Coverage/ /p:CoverletOutputFormat=cobertura /p:Exclude='[xunit.*]*'"
+            }
+        }
+        stage("Code coverage") {
+            steps {
+                sh "tools\reportgenerator.exe -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
             }
         }
     }
