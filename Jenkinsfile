@@ -2,8 +2,11 @@ pipeline {
     agent any
     stages {
         stage("Prepare") {
-            // Clean Jenkins workspace.
-            cleanWs()
+            steps {
+                // Clean Jenkins workspace.
+                cleanWs()
+            }
+
         }
         stage("SDK Versions") {
             steps {
