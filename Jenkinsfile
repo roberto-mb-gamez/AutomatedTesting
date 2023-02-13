@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("Install tools") {
             steps {
-                sh "rm -f -d tools"
+                sh "if (! -d 'tools') then rm -f -d tools endif"
                 sh "dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools"
             }
         }
