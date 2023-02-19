@@ -24,8 +24,8 @@ pipeline {
         }
         stage("Code Coverage Report") {
             steps {
-                sh "ls"
-                sh "ls -R ./BuildReports"
+                // sh "ls"
+                // sh "ls -R ./BuildReports"
                 publishHTML (target : [ reportDir: './BuildReports/Coverage', reportFiles: 'index.html', reportName: 'Code Coverage Report'])
             }
         }
