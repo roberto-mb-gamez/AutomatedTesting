@@ -19,5 +19,10 @@ pipeline {
                 sh "./tools/reportgenerator -reports:**/coverage.cobertura.xml -targetdir:BuildReports/Coverage -reporttypes:'HTML;HTMLSummary'"
             }
         }
+        stage("Code Coverage Report") {
+            steps {
+                sh "ls"
+            }
+        }
     }
 }
