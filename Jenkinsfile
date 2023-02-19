@@ -23,10 +23,7 @@ pipeline {
             steps {
                 sh "ls"
                 sh "ls -R ./BuildReports"
-                sh "publishHTML (target : [
-                        reportDir: './BuildReports/Coverage',
-                        reportFiles: 'index.html',
-                        reportName: 'Code Coverage Report'])"
+                sh "publishHTML (target : [ reportDir: './BuildReports/Coverage',reportFiles: 'index.html', reportName: 'Code Coverage Report'])"
             }
         }
     }
