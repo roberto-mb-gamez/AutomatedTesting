@@ -22,6 +22,7 @@ pipeline {
         stage("Code Coverage Report") {
             steps {
                 sh "ls"
+                sh "ls -R ./BuildReports"
             }
         }
     }
